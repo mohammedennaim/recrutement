@@ -5,52 +5,69 @@ use App\Classes\User;
 use App\Config\Database;
 use App\Models\UserModel;
 use PDO;
-
 class AuthController{
-
-   
     public function login($email, $password){
         $userModel = new UserModel();
-        $user =  $userModel->findUserByEmailAndPassword($email, $password);
-        if($user == null)
+        $userLogin =  $userModel->findUserByEmailAndPassword($email, $password);
+        $role = $userLogin->getRole();
+        
+        // var_dump( $role->getTitle());
+        if($userLogin == null)
         {
             echo "user not found please check ...";
         }
         else{
-            if($user->getRole()->getTitle() == "admin")
+            if($role == "admin")
             {
                 header("Location:../admin/dashboard.php");
+                // header("Location:http://www.google.com");
             }
-            else if($user->getRole()->getTitle() == "candidate")
+            else if($role == "candidate")
             {
-              header("Location:../candidate/home.php");
+                header("Location:../candidate/home.php");
             }
-            else if($user->getRole()->getTitle() == "recruiter")
+            else if($role == "recruiter")
             {
-              header("Location:../recruiter/home.php");
+                header("Location:../recruiter/home.php");
             }
         }
     }
-    public function register($name, $phone, $email, $password){
+    public function singUp($name,$phone,$email,$password,$role){
         $userModel = new UserModel();
-        $user =  $userModel->findUserByEmailAndPassword($email, $password);
-        if($user == null)
+        $userSignUp = $userModel->findUserByEmailAndPassword($email, $password);
+        var_dump($userSignUp);
+        if($userSignUp == null)
         {
-            echo "user not found please check ...";
+            // $query = "INSERT INTO user(`name`, phone, email, `password`, `role`) VALUES (`:name`, :phone, :email, `:password`, `:role`)";
+            $query = "INSERT INTO user (`name`, phone, email, `password`, `role`) VALUES (`:name`, :phone, :email, `:password`, `:role`);";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':phone', $phone);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':role', $role);
+            $stmt->execute();
+  
+            echo "singUp succes";
         }
         else{
-            if($user->getRole()->getTitle() == "admin")
-            {
-                header("Location:../admin/dashboard.php");
-            }
-            else if($user->getRole()->getTitle() == "candidate")
-            {
-              header("Location:../candidate/home.php");
-            }
-            else if($user->getRole()->getTitle() == "recruiter")
-            {
-              header("Location:../recruiter/home.php");
-            }
+            echo "This Email is Already exists";
         }
+        // $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        // if(!$row){
+        //    return null;
+        // }
+        // else{
+        //    $role = new Role($row["id"],$row["role"]);
+        //    return new User($row['id'],$row["email"],$role,$row["password"]);
+        // }
     }
+    // public function register($name, $phone, $email, $password,$role){
+        
+    //         $signUp = new UserModel();
+    //         $signUp->signUp($name,$phone,$email, $password,$role);
+    //         echo "singUp succes";
+        
+    // }
+    
 }

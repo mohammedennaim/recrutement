@@ -5,25 +5,39 @@ use App\Controllers\Auth\AuthController;
 
 
 
-if(isset($_POST["submit"]))
+if ($_SERVER['REQUEST_METHOD'] == "POST") 
 {
+  if(empty($_POST["email"]))
+  {
+    echo "email is empty";
+  }
+  if(empty($_POST["password"]))
+  {
+    echo "password is empty";
+  }
+  if(empty($_POST["name"]))
+  {
+    echo "Name is empty";
+  }
+  if(empty($_POST["phone"]))
+  {
+    echo "Phone is empty";
+  }
+  if(empty($_POST["role"]))
+  {
+    echo "Role is empty";
+  }
+  else{
+    $name = $_POST["name"];
+    $phone = $_POST["phone"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $role = $_POST["role"];
 
-    if(empty($_POST["email"]) && empty($_POST["password"]) && empty($_POST["name"]) && empty($_POST["phone"]))
-    {
-        echo "email or password is empty";
-    }
-    else{
-        $name = $_POST["name"];
-        $phone = $_POST["phone"];
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-
-        $authController = new AuthController();
-        $authController->register($name, $phone, $email, $password);
-
-    }
+    $authController = new AuthController();
+    $authController->singUp($name, $phone, $email, $password,$role);
+  }
 }
-
 
 ?>
 
@@ -53,14 +67,12 @@ if(isset($_POST["submit"]))
     <h3
       class="block antialiased tracking-normal font-sans text-3xl font-semibold leading-snug text-blue-gray-900 mb-2"
     >
-      Sign In
+      Sign Up
     </h3>
-    <p
-      class="block antialiased font-sans text-base font-light leading-relaxed text-inherit mb-16 text-gray-600 font-normal text-[18px]"
-    >
-      Enter your email and password to sign in
-    </p>
-    <form action="#" class="mx-auto max-w-[24rem] text-left">
+
+    <br>
+    <br>
+    <form method="post" class="mx-auto max-w-[24rem] text-left">
     <div class="mb-6">
         <label for="name"
           ><p
@@ -75,6 +87,27 @@ if(isset($_POST["submit"]))
             type="text"
             name="name"
             placeholder="Your Name"
+            class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent placeholder:opacity-0 focus:placeholder:opacity-100 text-sm px-3 py-3 rounded-md border-blue-gray-200 focus:border-gray-900 w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+          /><label
+            class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[4.1] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900 hidden"
+          >
+          </label>
+        </div>
+      </div>  
+      <div class="mb-6">
+        <label for="phone"
+          ><p
+            class="block antialiased font-sans text-sm font-light leading-normal text-inherit mb-2 block font-medium text-gray-900"
+          >
+            Your Phone
+          </p></label
+        >
+        <div class="relative w-full min-w-[200px] h-11">
+          <input
+            id="phone"
+            type="tel"
+            name="phone"
+            placeholder="Your Phone"
             class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent placeholder:opacity-0 focus:placeholder:opacity-100 text-sm px-3 py-3 rounded-md border-blue-gray-200 focus:border-gray-900 w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
           /><label
             class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[4.1] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900 hidden"
@@ -136,12 +169,20 @@ if(isset($_POST["submit"]))
           <input
             placeholder="********"
             type="password"
+            name="password"
             class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent placeholder:opacity-0 focus:placeholder:opacity-100 text-sm px-3 py-3 rounded-md !pr-9 border-blue-gray-200 focus:border-gray-900 w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
           /><label
             class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[4.1] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900 hidden"
           >
           </label>
         </div>
+      </div>
+      <div class="mb-6">
+        <select name="role" id="role">
+          <option value="Admin">Admin</option>
+          <option value="Recruteur">Recruteur</option>
+          <option value="User">User</option>
+        </select>
       </div>
       <button
         class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-sm py-3.5 px-7 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none bg-gray-900 block w-full gap-3 mt-6"

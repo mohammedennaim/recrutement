@@ -12,12 +12,12 @@ class User {
     public $updated_at;
     
     public function __construct($id, $email, $role,$password='', $created_at='', $updated_at='') {
-            $this->id = $id;
-            $this->email = $email;
-            $this->role = $role;
-            $this->password = $password;
-            $this->created_at = $created_at;
-            $this->updated_at = $updated_at;
+        $this->id = $id;
+        $this->email = $email;
+        $this->role = $role;
+        $this->password = $password;
+        $this->created_at = $created_at;
+        $this->updated_at = $updated_at;
     }
 
 

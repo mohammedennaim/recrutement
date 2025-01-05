@@ -2,12 +2,7 @@
     "name": "youcode/live-coding",
     "autoload": {
         "classmap": [
-            "src/Classes/",
-            "src/Config/",
-            "src/Controllers/",
-            "src/Models/",
-            "src/Views/"
-
+            "src/"
         ]
     },
     "authors": [
