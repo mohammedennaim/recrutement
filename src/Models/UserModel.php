@@ -15,21 +15,17 @@ class UserModel{
    }
 
    public function findUserByEmailAndPassword($email, $password) {
-      $hash = password_hash($password,PASSWORD_BCRYPT);
-      $query = "SELECT id, `name`, phone, email, `password`, `role` FROM user WHERE email = :email";        
+      $query = "SELECT id, name, phone, email, password, role FROM user WHERE email = :email";        
   
       $stmt = $this->conn->prepare($query); 
       $stmt->bindParam(':email', $email);
       $stmt->execute();
       
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      $hashPass = password_hash($password,PASSWORD_BCRYPT);
-      var_dump($hashPass);
-
       if (!$row) {
           return null;
       } else {
-         if ($email == $row["email"] && password_verify($hashPass, $row["password"])) {
+         if ($email == $row["email"] && password_verify($password, $row["password"])) {
             return new User($row['id'], $row["email"], $row["role"], $row["password"]);
          } else {
             return null; 

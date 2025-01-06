@@ -3,6 +3,7 @@ require_once "../../vendor/autoload.php";
 use App\Config\Database;
 $data = new Database();
 $data->connection();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +52,7 @@ $data->connection();
 	          <li class="nav-item cta mr-md-1"><a href="blog/new-post.php" class="nav-link">Post a Job</a></li>
 	          <li class="nav-item cta cta-colored mr-5"><a href="blog/job-post.php" class="nav-link">Want a Job</a></li>
 			  <li class="nav-item cta ml-5"><a href="auth/login.php" class="nav-link">login</a></li>
-	          <li class="nav-item cta ml-2 cta-colored"><a href="auth/register.php" class="nav-link">sign up</a></li>
+	          <li class="nav-item cta ml-2 cta-colored"><a href="auth/signUp.php" class="nav-link">sign up</a></li>
 	        </ul>
 	      </div>
 	    </div>

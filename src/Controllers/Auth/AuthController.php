@@ -14,7 +14,7 @@ class AuthController{
             $role = $userLogin->getRole();
             if($role == "admin")
             {
-                header("Location:../admin/dashboard.php");
+                header("Location:../admin/dashboard/public/index.php");
             }
             if($role == "candidate")
             {
