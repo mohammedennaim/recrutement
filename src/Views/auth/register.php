@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
     $password = $_POST["password"];
     $role = $_POST["role"];
 
+
     $authController = new AuthController();
     $authController->singUp($name, $phone, $email, $password,$role);
   }
@@ -105,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         <div class="relative w-full min-w-[200px] h-11">
           <input
             id="phone"
-            type="tel"
+            type="text"
             name="phone"
             placeholder="Your Phone"
             class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent placeholder:opacity-0 focus:placeholder:opacity-100 text-sm px-3 py-3 rounded-md border-blue-gray-200 focus:border-gray-900 w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
@@ -179,9 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
       </div>
       <div class="mb-6">
         <select name="role" id="role">
-          <option value="Admin">Admin</option>
-          <option value="Recruteur">Recruteur</option>
-          <option value="User">User</option>
+          <option value="recruteur">Recruteur</option>
+          <option value="candidate">Candidate</option>
         </select>
       </div>
       <button
@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         class="block antialiased font-sans text-sm font-light leading-normal text-gray-700 !mt-4 text-center font-normal"
       >
         I Have Account<!-- -->
-        <a href="./login.php" class="font-medium text-gray-900">login</a>
+        <a href="./login.php" class="font-medium text-gray-900">SignUp</a>
       </p>
     </form>
   </div>

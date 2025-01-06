@@ -14,23 +14,39 @@ class UserModel{
       $this->conn = $db->connection();
    }
 
-   public function findUserByEmailAndPassword($email, $password){
-      $query = "SELECT id ,'name', phone, email , `password` , `role` from user";        
-
+   public function findUserByEmailAndPassword($email, $password) {
+      $hash = password_hash($password,PASSWORD_BCRYPT);
+      $query = "SELECT id, `name`, phone, email, `password`, `role` FROM user WHERE email = :email";        
+  
       $stmt = $this->conn->prepare($query); 
+      $stmt->bindParam(':email', $email);
       $stmt->execute();
       
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      $hashPass = password_hash($password,PASSWORD_BCRYPT);
+      var_dump($hashPass);
 
-      if(!$row){
-         return null;
-      }
-      else{
-         if ($email == $row["email"] && $password == $row["password"]) {
-            return new User($row['id'],$row["email"],$row["role"],$row["password"]);
-         } else{
-            echo "cette personne il n'existe pas";
+      if (!$row) {
+          return null;
+      } else {
+         if ($email == $row["email"] && password_verify($hashPass, $row["password"])) {
+            return new User($row['id'], $row["email"], $row["role"], $row["password"]);
+         } else {
+            return null; 
          }
       }
+   }
+  
+   public function register($name, $phone, $email, $password,$role){
+      $hash = password_hash($password,PASSWORD_DEFAULT);
+      $query = "INSERT INTO user (name, phone, email, password, role) VALUES (:name, :phone, :email, :password, :role);";
+      $stmt = $this->conn->prepare($query);
+      var_dump([$name, $phone, $email, $password,$role]);
+      $stmt->bindParam(':name', $name);
+      $stmt->bindParam(':phone', $phone);
+      $stmt->bindParam(':email', $email);
+      $stmt->bindParam(':password', $hash);
+      $stmt->bindParam(':role', $role);
+      $stmt->execute();
    }
 }
