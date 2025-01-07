@@ -1,29 +1,37 @@
 <?php
 namespace App\Controllers\Auth;
 
-use App\Classes\User;
-// use App\Config\Database;
 use App\Models\UserModel;
-use PDO;
 class AuthController{
     public function login($email, $password){
+
         $userModel = new UserModel();
         $userLogin =  $userModel->findUserByEmailAndPassword($email, $password);
         if($userLogin != null)
         {
             $role = $userLogin->getRole();
-            if($role == "admin")
-            {
-                header("Location:../admin/dashboard/public/index.php");
+            $id = $userLogin->getId();
+            
+            session_start();
+            $_SESSION["id"] = $id;
+            $_SESSION["role"] = $role;
+
+            
+            switch ($role) {
+                case "admin":
+                    header("Location:../admin/dashboard/public/index.php");
+                    break;
+                case "candidate":
+                    header("Location:../candidate/home.php");
+                    break;
+                case "recruiter":
+                    header("Location:../recruiter/home.php");
+                    break;
+                default:
+                    header("Location: login.php" );
+                    break;
             }
-            if($role == "candidate")
-            {
-                header("Location:../candidate/home.php");
-            }
-            if($role == "recruiter")
-            {
-                header("Location:../recruiter/home.php");
-            }
+            exit();
         }
         else{
             echo "cette personne il n'existe pas";
@@ -32,25 +40,15 @@ class AuthController{
     public function singUp($name,$phone,$email,$password,$role){
         $userModel = new UserModel();
         $userSignUp = $userModel->findUserByEmailAndPassword($email, $password);
-        
-        if($userSignUp == null)
-        {
-            $query=$userModel->register($name,$phone,$email,$password,$role);
 
-            if($role == "candidate")
-            {
-                header("Location:../candidate/home.php");
-            }
-            if($role == "recruiter")
-            {
-                header("Location:../recruiter/home.php");
-            }
-        }
-        else{
-            echo "This Email is Already exists";
+        if ($userSignUp == null) {
+            $userModel->register($name, $phone, $email, $password, $role);
+            header("Location:../" . $role . "/home.php");
+            exit();
+        } else {
+            echo "This email already exists.";
         }
         
     }
-   
-    
+
 }

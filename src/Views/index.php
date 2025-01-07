@@ -45,12 +45,12 @@ $data->connection();
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="blog/browsejobs.php" class="nav-link">Browse Jobs</a></li>
-	          <li class="nav-item"><a href="blog/candidates.php" class="nav-link">Canditates</a></li>
-	          <li class="nav-item"><a href="blog/blog.php" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="blog/contact.php" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta mr-md-1"><a href="blog/new-post.php" class="nav-link">Post a Job</a></li>
-	          <li class="nav-item cta cta-colored mr-5"><a href="blog/job-post.php" class="nav-link">Want a Job</a></li>
+	          <li class="nav-item"><a href="./pages/browsejobs.php" class="nav-link">Browse Jobs</a></li>
+	          <li class="nav-item"><a href="./pages/candidates.php" class="nav-link">Canditates</a></li>
+	          <li class="nav-item"><a href="./pages/blog.php" class="nav-link">Blog</a></li>
+	          <li class="nav-item"><a href="./pages/contact.php" class="nav-link">Contact</a></li>
+	          <li class="nav-item cta mr-md-1"><a href="./pages/new-post.php" class="nav-link">Post a Job</a></li>
+	          <li class="nav-item cta cta-colored mr-5"><a href="./pages/job-post.php" class="nav-link">Want a Job</a></li>
 			  <li class="nav-item cta ml-5"><a href="auth/login.php" class="nav-link">login</a></li>
 	          <li class="nav-item cta ml-2 cta-colored"><a href="auth/signUp.php" class="nav-link">sign up</a></li>
 	        </ul>
