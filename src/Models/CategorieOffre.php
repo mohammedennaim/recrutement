@@ -11,11 +11,13 @@ class CategorieOffre
         $db = new Database();
         $this->conn = $db->connection();
      }
-    public function findCategories() {
-        $query = "SELECT categorie.id as id, categorie_name as name FROM categorie
-        join offrecategorie on offrecategorie.categorie_id = id
-        join offre on offre.id = offrecategorie.offre_id";        
+    public function fetchAllCategories() {
+        // $query = "SELECT categorie.id as id, categorie_name as name FROM categorie
+        // join offrecategorie on offrecategorie.categorie_id = id
+        // join offre on offre.id = offrecategorie.offre_id";        
   
+        $query = "SELECT categorie.id as id, categorie_name as name, status FROM categorie";        
+
         $stmt = $this->conn->prepare($query); 
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -26,11 +28,40 @@ class CategorieOffre
             return null;
         } else {
             foreach ($rows as $row) {
-                $categories[] = new Categorie($row['id'], $row["name"]);
+                $categories[] = new Categorie($row['id'], $row["name"],$row["status"]);
             }
             return $categories;
         }
      }
+    //  public function fetchCategorie($name) {
+    //     $query = "SELECT categorie.id as id, categorie_name as name FROM categorie
+    //     join offrecategorie on offrecategorie.categorie_id = id
+    //     join offre on offre.id = offrecategorie.offre_id";        
+  
+    //     $stmt = $this->conn->prepare($query); 
+    //     $stmt->execute();
+    //     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+    //     if (!$rows) {
+    //         return null;
+    //     } else {
+    //         foreach ($rows as $row) {
+    //             if ($row['name']=$name) {
+    //                 $categorie = new Categorie($row['id'], $row["name"]);
+    //                 return $categorie;
+    //             }
+    //         }
+    //     }
+    //  }
+     public function ajouterCategorie($name){
+        $query = "INSERT INTO categorie (categorie_name) VALUES (:name);";
+        $stmt = $this->conn->prepare($query);
+  
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        
+     }
+
 }
 
 

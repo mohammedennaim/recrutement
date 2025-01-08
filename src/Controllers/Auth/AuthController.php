@@ -16,23 +16,22 @@ class AuthController{
             $_SESSION["id"] = $id;
             $_SESSION["role"] = $role;
             
-            // if () {
-                switch ($_SESSION["role"]) {
-                    case "admin":
-                        header("Location:../admin/dashboard/public/index.php");
-                        break;
-                    case "candidate":
-                        header("Location:../candidate/home.php");
-                        break;
-                    case "recruiter":
-                        header("Location:../recruiter/home.php");
-                        break;
-                    default:
-                        header("Location: login.php" );
-                        break;
-                }
-                exit();
-            // }
+
+            switch ($_SESSION["role"]) {
+                case "admin":
+                    header("Location:../admin/dashboard/public/index.php");
+                    break;
+                case "candidate":
+                    header("Location:../candidate/home.php");
+                    break;
+                case "recruiter":
+                    header("Location:../recruiter/home.php");
+                    break;
+                default:
+                    header("Location: login.php" );
+                    break;
+            }
+            exit();
             
         }
         else{
@@ -52,5 +51,6 @@ class AuthController{
         }
         
     }
+
 
 }
