@@ -13,14 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-
     $authController = new AuthController();
     $authController->login($email, $password);
-    // if (!isset($_SESSION["id"]) && isset($_SESSION["role"]) && $_SESSION["role"] !== "admin") {
-    //   header("Location: login.php"); // Redirect to login page
-    //   exit();
-    // }
-
   }
 }
 ?>
