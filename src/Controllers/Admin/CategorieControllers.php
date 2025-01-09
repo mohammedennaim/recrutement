@@ -8,7 +8,23 @@ class CategorieControllers{
         $categories = $categorie->fetchAllCategories();
         return $categories;
     }
-    // public function ajouter() {}
+    public function ajouter($name) {
+        
+        $categorie = new CategorieOffre();
+        $categorie->ajouterCategorie($name );
+        if($categorie){
+            header('refresh:0');
+            header("Refresh:0; url=page2.php");
+
+
+        }
+
+    }
+    public function find($name) {
+        $categorie = new CategorieOffre();
+        $categorie->findByName($name);
+        return $categorie;
+    }
     
 // public function categorieOffre($name){
     //     $categorieOffre = new CategorieOffre();

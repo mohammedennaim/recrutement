@@ -33,34 +33,33 @@ class CategorieOffre
             return $categories;
         }
      }
-    //  public function fetchCategorie($name) {
-    //     $query = "SELECT categorie.id as id, categorie_name as name FROM categorie
-    //     join offrecategorie on offrecategorie.categorie_id = id
-    //     join offre on offre.id = offrecategorie.offre_id";        
-  
-    //     $stmt = $this->conn->prepare($query); 
-    //     $stmt->execute();
-    //     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-    //     if (!$rows) {
-    //         return null;
-    //     } else {
-    //         foreach ($rows as $row) {
-    //             if ($row['name']=$name) {
-    //                 $categorie = new Categorie($row['id'], $row["name"]);
-    //                 return $categorie;
-    //             }
-    //         }
-    //     }
-    //  }
+     
+     public function findByName($name) {
+         $stmt = $this->conn->prepare("SELECT * FROM categorie WHERE categorie_name = :name");
+         $stmt->bindParam(':name', $name);
+         $stmt->execute(); 
+     
+         // Return the category data or false if not found
+         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        //  return $result; 
+     }
+     
+     
      public function ajouterCategorie($name){
         $query = "INSERT INTO categorie (categorie_name) VALUES (:name);";
         $stmt = $this->conn->prepare($query);
-  
-        $stmt->bindParam(':name', $name);
+
+        $stmt->bindParam(':name',$name);
         $stmt->execute();
-        
+        // var_dump("categorie_name")
      }
+//      public function DeleteRecor($lD=null, $table="categorie"){
+// if ($ID
+// Squery_string sprintfCDELETE FROM (Stable) WHERE
+// // execute database query
+// Sresult :
+// if (Sresult){
+// echo "Record Deleted successfully!";}
 
 }
 
