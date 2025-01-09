@@ -14,9 +14,6 @@ class CategorieControllers{
         $categorie->ajouterCategorie($name );
         if($categorie){
             header('refresh:0');
-            header("Refresh:0; url=page2.php");
-
-
         }
 
     }
